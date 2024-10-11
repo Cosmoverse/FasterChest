@@ -17,9 +17,9 @@ altogether as one serialized entry—which is what Mojang does). This allows che
 needed (such as when a player accesses the chest, or an explosion drops chest inventory). A chest that hasn't
 changed during previous and current world-save is neither read nor written.
 
-| Vanilla World Format Performance (left) vs. FastChest Performance (right) |
-|---------------------------------------------------------------------------|
-| ![](readme-resources/no-faster-chest-vs-faster-chest.mov)                 |
+https://github.com/user-attachments/assets/579b13f9-4f34-43bd-b4c0-79d8b84a11f4
+
+_<p align="center">Vanilla World Format Performance (left) vs. FastChest Performance (right)</p>_
 
 ### How to Use FastChest?
 **A world backup is recommended before using this plugin.**
