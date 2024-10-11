@@ -10,8 +10,8 @@ The performance impact that Mojang's default world format has makes it impractic
 servers especially when there's a lot of action happening simultaneously (like PvP, events, etc.).
 ![](readme-resources/a-lot-of-chests.png)
 
-### How FastChest Works?
-FastChest stores items in chest outside (i.e., separately from) the `worlds` folder in a `chest.db` file
+### How FasterChest Works?
+FasterChest stores items in chest outside (i.e., separately from) the `worlds` folder in a `chest.db` file
 that maps each chest coordinate to their inventory. This means chests are stored individually (rather than
 altogether as one serialized entry—which is what Mojang does). This allows chests to be loaded only when
 needed (such as when a player accesses the chest, or an explosion drops chest inventory). A chest that hasn't
@@ -19,19 +19,19 @@ changed during previous and current world-save is neither read nor written.
 
 https://github.com/user-attachments/assets/579b13f9-4f34-43bd-b4c0-79d8b84a11f4
 
-_<p align="center">Vanilla World Format Performance (left) vs. FastChest Performance (right)</p>_
+_<p align="center">Vanilla World Format Performance (left) vs. FasterChest Performance (right)</p>_
 
-### How to Use FastChest?
+### How to Use FasterChest?
 **A world backup is recommended before using this plugin.**
-Install the plugin on your server. All <ins>newly-placed chests</ins> will use a `FastChest` tile in place of
+Install the plugin on your server. All <ins>newly-placed chests</ins> will use a `FasterChest` tile in place of
 vanilla chest tiles. This new tile is indistinguishable from chest tiles to players.
 
-**What about existing chests?** Run `/save-all` then `/fastchest convert <world>` to convert all existing
-chests in a  specific world to `FastChest` tile. This process can take a while depending on how many chunks
+**What about existing chests?** Run `/save-all` then `/fasterchest convert <world>` to convert all existing
+chests in a  specific world to `FasterChest` tile. This process can take a while depending on how many chunks
 (and how many chests) are in your world.
 
-**What if I do not want to use the plugin anymore?** Run `/save-all` then `/fastchest revert <world>` for all
-worlds on your server. This will revert all `FastChest` tiles to vanilla tiles. Running this command is necessary
+**What if I do not want to use the plugin anymore?** Run `/save-all` then `/fasterchest revert <world>` for all
+worlds on your server. This will revert all `FasterChest` tiles to vanilla tiles. Running this command is necessary
 if you choose to uninstall the plugin (otherwise you risk corrupting chests in your world).
 
 
@@ -45,7 +45,7 @@ Await::f2c(function() use($loader) : Generator{
 	$world = $loader->getServer()->getWorldManager()->getDefaultWorld();
 
 	$conversions = yield from $loader->convertWorld($world);
-	echo "Converted ", $conversions, " chest(s) to FastChest";
+	echo "Converted ", $conversions, " chest(s) to FasterChest";
 
 	$reversions = yield from $loader->revertWorld($world);
 	echo "Reverted ", $reversions, " chest(s) to vanilla chest";
@@ -53,8 +53,8 @@ Await::f2c(function() use($loader) : Generator{
 ```
 
 `FasterChest` lets you specify a custom serialization mechanism for chest items if you so wish to. Switch from
-the default serializer to a custom inventory serializer by creating your own `FastChestSerializer` instance and
-assigning it to `FastChest::$serializer` during your plugin's `onLoad()`.
+the default serializer to a custom inventory serializer by creating your own `FasterChestSerializer` instance and
+assigning it to `FasterChest::$serializer` during your plugin's `onLoad()`.
 ```php
-FasterChest::$serializer = new MyFastChestSerializer();
+FasterChest::$serializer = new MyFasterChestSerializer();
 ```
