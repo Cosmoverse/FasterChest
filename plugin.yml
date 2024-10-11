@@ -1,0 +1,15 @@
+name: FasterChest
+main: cosmoverse\fasterchest\Loader
+api: 5.0.0
+version: 0.0.1
+author: Muqsit
+commands:
+  fasterchest:
+    description: Convert or revert chests in worlds between vanilla chests and faster chests
+    usage: /fasterchest convert/revert <world>
+    permission: fasterchest.command.fasterchest
+    aliases: ["fasterchests"]
+permissions:
+  fasterchest.command.fasterchest:
+    description: Ability to use /fasterchest command
+    default: op
