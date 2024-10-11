@@ -15,11 +15,12 @@ FasterChest stores items in chest outside (i.e., separately from) the `worlds` f
 that maps each chest coordinate to their inventory. This means chests are stored individually (rather than
 altogether as one serialized entry—which is what Mojang does). This allows chests to be loaded only when
 needed (such as when a player accesses the chest, or an explosion drops chest inventory). A chest that hasn't
-changed during previous and current world-save is neither read nor written.
+been accessed during previous and current world-save is neither read nor written.
 
 https://github.com/user-attachments/assets/579b13f9-4f34-43bd-b4c0-79d8b84a11f4
 
-_<p align="center">Vanilla World Format Performance (left) vs. FasterChest Performance (right)</p>_
+_<p align="center">Vanilla World Load Performance (left) vs. FasterChest Performance (right) for a world consisting of
+a chunk with 4096 fully-filled chests containing custom-named items with 5 enchantments</p>_
 
 ### How to Use FasterChest?
 **A world backup is recommended before using this plugin.**
@@ -34,6 +35,10 @@ chests in a  specific world to `FasterChest` tile. This process can take a while
 worlds on your server. This will revert all `FasterChest` tiles to vanilla tiles. Running this command is necessary
 if you choose to uninstall the plugin (otherwise you risk corrupting chests in your world).
 
+### When FasterChest Does Not Cut It
+Servers that utilize plugins that automatically scan and modify many chests frequently will notice lesser performance
+gain from FasterChest. Being strategic with reads and conservative with writes can however help reduce deserialization
+or serialization costs (or both!).
 
 ### Developer Docs
 Programatically convert and revert chest tiles in a world using `Loader::convertWorld()` and `Loader::revertWorld()`
