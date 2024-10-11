@@ -1,0 +1,11 @@
+--- # Poggit-CI Manifest. Open the CI at https://poggit.pmmp.io/ci/Cosmoverse/FasterChest
+build-by-default: true
+branches:
+- master
+projects:
+  FasterChest:
+    path: ""
+    libs:
+      - src: SOF3/await-generator/await-generator
+        version: ^3.6.1
+...
