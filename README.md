@@ -48,9 +48,11 @@ asynchronous methods.
 $loader = $this->getServer()->getPluginManager()->getPlugin("FasterChest");
 $world = $this->getServer()->getWorldManager()->getDefaultWorld();
 Await::f2c(function() use($loader) : Generator{
+	$world->saveChunks(); // converters read some tile NBT from disk
 	$conversions = yield from $loader->convertWorld($world);
 	echo "Converted ", $conversions, " chest(s) to FasterChest";
 
+	$world->saveChunks();
 	$reversions = yield from $loader->revertWorld($world);
 	echo "Reverted ", $reversions, " chest(s) to vanilla chest";
 });
