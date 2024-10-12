@@ -45,10 +45,9 @@ Programatically convert and revert chest tiles in a world using `Loader::convert
 asynchronous methods.
 ```php
 /** @var Loader $loader */
-$loader = $loader->getServer()->getPluginManager()->getPlugin("FasterChest");
+$loader = $this->getServer()->getPluginManager()->getPlugin("FasterChest");
+$world = $this->getServer()->getWorldManager()->getDefaultWorld();
 Await::f2c(function() use($loader) : Generator{
-	$world = $loader->getServer()->getWorldManager()->getDefaultWorld();
-
 	$conversions = yield from $loader->convertWorld($world);
 	echo "Converted ", $conversions, " chest(s) to FasterChest";
 
