@@ -43,7 +43,7 @@ final class Loader extends PluginBase implements Listener{
 
 	protected function onLoad() : void{
 		TileFactory::getInstance()->register(FasterChest::class, [self::TILE_ID]);
-		if($this->getServer()->getConfigGroup()->getPropertyInt(YmlServerProperties::DEBUG_LEVEL, 1)){
+		if($this->getServer()->getConfigGroup()->getPropertyInt(YmlServerProperties::DEBUG_LEVEL, 1) > 1){
 			FasterChest::$logger = $this->getLogger();
 		}
 		if(!isset(FasterChest::$serializer)){ // in case other plugins over-rode it
