@@ -51,7 +51,7 @@ final class Loader extends PluginBase implements Listener{
 		}
 
 		// we will be using an 'internal block' to set FasterChest tile in worlds (we will NOT use World::addTile, ::removeTile)
-		// this 'internal block' is the vanilla chest block but without .
+		// this 'internal block' is the vanilla chest block but backed with a FasterChest tile class.
 		$internal_block = VanillaBlocks::CHEST();
 		$_idInfo = new ReflectionProperty($internal_block, "idInfo");
 		$_idInfo->setValue($internal_block, new BlockIdentifier($internal_block->getIdInfo()->getBlockTypeId(), FasterChest::class));
