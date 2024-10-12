@@ -124,13 +124,11 @@ class FasterChest extends Chest{
 			self::$logger?->info("Initialized chest at {$this->position}");
 		}else{
 			$buffer = self::$database->get($this->db_identifier);
-			if($buffer !== false){
-				$contents = self::$serializer->deserialize($buffer);
-				$this->inventory->getListeners()->remove(FasterChestInventoryListener::instance());
-				$this->inventory->setContents($contents);
-				$this->inventory->getListeners()->add(FasterChestInventoryListener::instance());
-				self::$logger?->info("Loaded chest from database at {$this->position}");
-			}
+			$contents = $buffer !== false ? self::$serializer->deserialize($buffer) : [];
+			$this->inventory->getListeners()->remove(FasterChestInventoryListener::instance());
+			$this->inventory->setContents($contents);
+			$this->inventory->getListeners()->add(FasterChestInventoryListener::instance());
+			self::$logger?->info("Loaded chest from database at {$this->position}");
 		}
 		$this->state = self::STATE_ALL_SAVED_CHANGES; // we can assume all changes are saved because we loaded data just now
 	}
