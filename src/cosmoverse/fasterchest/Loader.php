@@ -139,12 +139,16 @@ final class Loader extends PluginBase implements Listener{
 
 		$tile->unpair();
 		$contents = $tile->getRealInventory()->getContents();
+		$name = $tile->hasName() ? $tile->getName() : null;
 		$new_block = (clone $this->internal_block)->setFacing($block->getFacing());
 
 		$world->setBlockAt($position->x, $position->y, $position->z, $new_block, false);
 		$new_tile = $world->getTileAt($position->x, $position->y, $position->z);
 		$new_tile instanceof FasterChest || throw new RuntimeException("Expected internal block to set a faster chest tile, got " . ($new_tile !== null ? $new_tile::class : "null"));
 		$new_tile->getRealInventory()->setContents($contents);
+		if($name !== null){
+			$new_tile->setName($name);
+		}
 		$world->getBlockAt($position->x, $position->y, $position->z)->onPostPlace(); // pair into double chest
 		return count($contents);
 	}
@@ -162,6 +166,7 @@ final class Loader extends PluginBase implements Listener{
 		$identifier = FasterChest::dbIdFromPosition($position);
 		FasterChest::$database->delete($identifier);
 		$contents = $tile->getRealInventory()->getContents();
+		$name = $tile->hasName() ? $tile->getName() : null;
 		$listener = $this->chunk_listeners[$world->getId()];
 		$new_block = VanillaBlocks::CHEST()->setFacing($block->getFacing());
 
@@ -170,6 +175,9 @@ final class Loader extends PluginBase implements Listener{
 		$new_tile = $world->getTileAt($position->x, $position->y, $position->z);
 		$new_tile instanceof VanillaChestTile || throw new RuntimeException("Chest block did not set a chest tile, got " . ($new_tile !== null ? $new_tile::class : "null"));
 		$new_tile->getRealInventory()->setContents($contents);
+		if($name !== null){
+			$new_tile->setName($name);
+		}
 		$world->getBlockAt($position->x, $position->y, $position->z)->onPostPlace(); // pair into double chest
 		return count($contents);
 	}
