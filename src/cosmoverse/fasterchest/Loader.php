@@ -184,13 +184,14 @@ final class Loader extends PluginBase implements Listener{
 
 	/**
 	 * @param World $world
+	 * @param int $max_ops_per_tick maximum chunk reads per tick - when this value is exceeded, this task sleeps (waits for next server tick)
 	 * @return Generator<mixed, Await::RESOLVE, void, int>
 	 */
-	public function convertWorld(World $world) : Generator{
+	public function convertWorld(World $world, int $max_ops_per_tick = 128) : Generator{
 		$total_conversions = 0;
 		$read = 0;
 		foreach($world->getProvider()->getAllChunks(false, $this->getLogger()) as $coords => $data){
-			if(++$read % 128 === 0){
+			if(++$read % $max_ops_per_tick === 0){
 				// let server breathe for a while to release memory and perform other operations
 				yield from $this->sleep();
 			}
@@ -232,13 +233,14 @@ final class Loader extends PluginBase implements Listener{
 
 	/**
 	 * @param World $world
+	 * @param int $max_ops_per_tick maximum chunk reads per tick - when this value is exceeded, this task sleeps (waits for next server tick)
 	 * @return Generator<mixed, Await::RESOLVE, void, int>
 	 */
-	public function revertWorld(World $world) : Generator{
+	public function revertWorld(World $world, int $max_ops_per_tick = 128) : Generator{
 		$total_reversions = 0;
 		$read = 0;
 		foreach($world->getProvider()->getAllChunks(false, $this->getLogger()) as $coords => $data){
-			if(++$read % 128 === 0){
+			if(++$read % $max_ops_per_tick === 0){
 				// breathing exercise: all this php shitcode on a loop will otherwise eat your computer and your dog
 				yield from $this->sleep();
 			}
