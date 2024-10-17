@@ -19,7 +19,7 @@ been accessed during previous and current world-save is neither read nor written
 
 https://github.com/user-attachments/assets/579b13f9-4f34-43bd-b4c0-79d8b84a11f4
 
-_<p align="center">Vanilla World Load Performance (left) vs. FasterChest Performance (right) for a world consisting of
+_<p align="center">PocketMine's default world load performance (left) vs. with FasterChest (right) for a world consisting of
 a chunk with 4096 fully-filled chests containing custom-named items with 5 enchantments</p>_
 
 ### How to Use FasterChest?
