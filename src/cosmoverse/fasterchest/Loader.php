@@ -210,7 +210,7 @@ final class Loader extends PluginBase implements Listener{
 
 			$converted = 0;
 			foreach($chunk->getTiles() as $tile){
-				if(!($tile instanceof VanillaChestTile) || $tile instanceof FasterChest){
+				if($tile::class !== VanillaChestTile::class){
 					continue;
 				}
 

@@ -35,7 +35,7 @@ final class FasterChestChunkListener implements ChunkListener{
 
 	public function onBlockChanged(Vector3 $block) : void{
 		$tile = $this->world->getTileAt($block->x, $block->y, $block->z);
-		if(!($tile instanceof VanillaChestTile) || $tile instanceof FasterChest || isset($this->exclude_list[World::blockHash($block->x, $block->y, $block->z)])){
+		if($tile === null || $tile::class !== VanillaChestTile::class || isset($this->exclude_list[World::blockHash($block->x, $block->y, $block->z)])){
 			return;
 		}
 		$this->loader->convertTile($tile);
